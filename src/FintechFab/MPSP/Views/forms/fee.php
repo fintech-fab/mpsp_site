@@ -12,14 +12,14 @@ echo Form::model(FormHorizontalFields::model(), array(
 	<legend>New transfer conditions:</legend>
 
 	<div class="form-group">
-		<?
+		<?php
 		FormHorizontalFields::label('calc_amount', 'Amount (EUR)');
 		FormHorizontalFields::text('calc_amount', 'min: 10', 3);
 		?>
 	</div>
 
 	<div class="form-group">
-		<?
+		<?php
 		FormHorizontalFields::label('calc_receiver_city', 'Receiver city');
 		FormHorizontalFields::dropdownCity('calc_receiver_city');
 		?>

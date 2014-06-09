@@ -12,14 +12,14 @@ echo Form::model(FormHorizontalFields::model(), array(
 	<legend>Or сheck sent transfer there:</legend>
 
 	<div class="form-group">
-		<?
+		<?php
 		FormHorizontalFields::label('status_code', 'Transfer code');
 		FormHorizontalFields::text('status_code', 'transfer code');
 		?>
 	</div>
 
 	<div class="form-group">
-		<?
+		<?php
 		FormHorizontalFields::label('status_phone', 'Your phone number');
 		FormHorizontalFields::text('status_phone', '07 000 000-00-00');
 		?>
