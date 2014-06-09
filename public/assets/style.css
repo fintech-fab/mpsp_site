@@ -1,0 +1,88 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
+.clearfix {
+	clear: both;
+}
+
+body {
+	background: #4d76c5;
+}
+
+header {
+	background: #0a1a3c;
+	height: 5em;
+}
+
+section#about {
+	background: #1a3465;
+	height: 15em;
+}
+
+main {
+	padding: 3em;
+	padding-left: 10em;
+	padding-right: 10em;
+	background: #3a61ae; /* Old browsers */
+	background: -moz-linear-gradient(top,  #3a61ae 0%, #24427e 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3a61ae), color-stop(100%,#24427e)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #3a61ae 0%,#24427e 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #3a61ae 0%,#24427e 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #3a61ae 0%,#24427e 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #3a61ae 0%,#24427e 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3a61ae', endColorstr='#24427e',GradientType=0 ); /* IE6-9 */
+	min-height: 20em;
+}
+
+main h1 {
+	font-size: 3em;
+	color: #ffffff;
+	margin-bottom: 0.5em;
+}
+
+
+section#content {
+	color: white;
+}
+
+
+#form-status-result .error,
+#form-transfer-result .error,
+#form-transfer-confirm-result .error,
+#form-fee-result .error {
+	color: pink;
+	margin: 5px; padding: 5px; border: 1px solid pink;
+	text-align: center;
+}
+
+#form-status-result .message,
+#form-transfer-result .message,
+#form-transfer-confirm-result .message,
+#form-fee-result .message {
+	color: palegreen;
+	margin: 5px; padding: 5px; border: 1px solid palegreen;
+	text-align: center;
+}
+
+#form-status-result .waiting,
+#form-transfer-result .waiting,
+#form-transfer-confirm-result .waiting,
+#form-fee-result .waiting {
+	color: lightblue;
+	margin: 5px; padding: 5px; border: 1px solid lightblue;
+	text-align: center;
+}
+
+
+.mt30 {
+	margin-top: 30px;
+}
+
+#transfer-forms {
+	display: none;
+}
+#services-forms {
+	display: block;
+}
