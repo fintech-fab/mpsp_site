@@ -25,41 +25,38 @@ class Api
 	const C_STATUS_REFUND_ERROR = 13; // не удалось вернуть средства
 	const C_STATUS_REFUND_SUCCESS = 14; // средства были возвращены
 
-
 	/**
 	 * @param $sName
-	 * @param $aParams
+	 * @param $params
 	 *
 	 * @return \stdClass
 	 */
-	static private function request($sName, $aParams)
+	private function request($sName, $params)
 	{
-
-
-
 
 		Log::info('Environment: ' . App::environment());
 
 		$sUrl = rtrim(Config::get('api.url'), '/') . '/' . $sName;
 		$ch = curl_init($sUrl);
 
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $aParams);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
 		curl_setopt($ch, CURLOPT_URL, $sUrl);
 		curl_setopt($ch, CURLOPT_HEADER, 0);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$result = curl_exec($ch);
 		$error = curl_error($ch);
+		curl_close($ch);
 
 		Log::info('Api request', array(
 			'url'    => $sUrl,
 			'name'   => $sName,
-			'params' => $aParams,
+			'params' => $params,
 			'error'  => $error,
 			'result' => $result,
 		));
 
 		if ($error) {
-			Log::warning('Curl request error: ' . $error);
+			Log::warning('Curl request error: ' . $error, array());
 
 			return null;
 		}
@@ -67,19 +64,21 @@ class Api
 		$json = @json_decode($result);
 
 		if (!$json) {
-			Log::warning('Response format error: ' . $result);
+			Log::warning('Response format error: ' . $result, array());
 
 			return null;
 		}
 
 		if ($json->code < 0) {
-			Log::warning('Operation processing error: ' . $json->message);
-
+			Log::warning('Operation processing error: ' . $json->message, array());
+			Log::info('Api response', array(
+				'result' => $json,
+			));
 			return null;
 		}
 
 		if (!$json->response) {
-			Log::warning('Response is empty');
+			Log::warning('Response is empty', array());
 
 			return null;
 		}
@@ -88,28 +87,39 @@ class Api
 
 	}
 
-	static public function doTransferCreate($aParams)
+	/**
+	 * @param $aParams
+	 *
+	 * @return \stdClass
+	 */
+	public function doTransferCreate($aParams)
 	{
 
 		$oResult = self::request('transfer/create', $aParams);
-
 		return $oResult;
-
 
 	}
 
-	static public function doTransferSend($aParams)
+	/**
+	 * @param $aParams
+	 *
+	 * @return \stdClass
+	 */
+	public function doTransferSend($aParams)
 	{
 
 		$oResult = self::request('transfer/send', $aParams);
-
 		return $oResult;
-
 
 	}
 
-
-	static public function getFeeCost($iAmount, $iCityId)
+	/**
+	 * @param $iAmount
+	 * @param $iCityId
+	 *
+	 * @return \stdClass
+	 */
+	public function getFeeCost($iAmount, $iCityId)
 	{
 
 		$aParams = array(
@@ -119,12 +129,16 @@ class Api
 		);
 
 		$oResult = self::request('transfer/cost', $aParams);
-
 		return $oResult;
 
 	}
 
-	static public function doTransferStatus($aParams)
+	/**
+	 * @param $aParams
+	 *
+	 * @return null|\stdClass
+	 */
+	public function doTransferStatus($aParams)
 	{
 
 		$result = self::request('transfer/status', $aParams);
@@ -150,11 +164,23 @@ class Api
 				break;
 
 			case self::C_STATUS_TRANSFER_TO_SEND:
-				$sMsg = 'Средства успешно списаны с вашей картой, осуществляется перевод...';
+				$sMsg = 'Средства успешно списаны с вашей карты, осуществляется перевод...';
 				break;
 
 			case self::C_STATUS_TRANSFER_SUCCESS:
 				$sMsg = 'Перевод успешно отправлен!';
+				break;
+
+			case self::C_STATUS_REFUND_SUCCESS:
+				$sMsg = 'Возникла ошибка перевода, средства возвращены на карту отправителя';
+				break;
+
+			case self::C_STATUS_REFUND_WAIT:
+				$sMsg = 'Возникла ошибка перевода, осуществляется возврат средств на карту отправителя';
+				break;
+
+			case self::C_STATUS_REFUND_ERROR:
+				$sMsg = 'Возникла ошибка перевода и возврата средств на карту отправителя';
 				break;
 
 			default:

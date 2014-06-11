@@ -10,7 +10,10 @@ class LineFormatter extends MonologLineFormatter
 	public function format(array $record)
 	{
 
+		$format = $this->format;
+
 		if(!empty($record['context'])){
+
 
 			$this->format = str_replace(
 				'%context%',
@@ -21,29 +24,9 @@ class LineFormatter extends MonologLineFormatter
 		}
 
 		$output = parent::format($record);
-
-		$output = "\n\n" . $output . "\n\n" . $this->elephant();
+		$this->format = $format;
 
 		return $output;
-
-	}
-
-	private function elephant()
-	{
-
-		return "\n\n##,............,#**#,.,#**#,,
-.##.... .....,,#####..........#
-..##....,#.... ......#....//....#
-...###*.....#...... ....((.......#
-....'''#................ ........#
-.......''#......#............ ..#
-..........''##;........#.....#,
-.............#........\"##\"..#,
-............#................ . .#,
-............#.....#......... .. ...#
-............#.....#..... ...... ...#,
-............#.....#... ........ ....#
-............#######......###### #####\n\n\n";
 
 	}
 

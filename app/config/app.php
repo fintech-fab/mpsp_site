@@ -124,10 +124,7 @@ return [
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
 		// app specific
-		\FintechFab\MPSP\Routes\RoutesServiceProvider::class,
-		\FintechFab\MPSP\Views\Support\ViewsServiceProvider::class,
-
-		//Schema
+		\FintechFab\MPSP\MpspServiceProvider::class,
 
 	],
 
@@ -157,6 +154,7 @@ return [
 
 	'aliases' => [
 
+		'Mpsp'            => '\FintechFab\MPSP\Facades\Mpsp',
 		'App'             => 'Illuminate\Support\Facades\App',
 		'Artisan'         => 'Illuminate\Support\Facades\Artisan',
 		'Auth'            => 'Illuminate\Support\Facades\Auth',
@@ -167,7 +165,6 @@ return [
 		'Controller'      => 'Illuminate\Routing\Controller',
 		'Cookie'          => 'Illuminate\Support\Facades\Cookie',
 		'Crypt'           => 'Illuminate\Support\Facades\Crypt',
-		//'DB'              => 'Illuminate\Support\Facades\DB',
 		'Eloquent'        => 'Illuminate\Database\Eloquent\Model',
 		'Event'           => 'Illuminate\Support\Facades\Event',
 		'File'            => 'Illuminate\Support\Facades\File',
@@ -185,7 +182,6 @@ return [
 		'Request'         => 'Illuminate\Support\Facades\Request',
 		'Response'        => 'Illuminate\Support\Facades\Response',
 		'Route'           => 'Illuminate\Support\Facades\Route',
-		//'Schema'          => 'Illuminate\Support\Facades\Schema',
 		'Seeder'          => 'Illuminate\Database\Seeder',
 		'Session'         => 'Illuminate\Support\Facades\Session',
 		'SSH'             => 'Illuminate\Support\Facades\SSH',

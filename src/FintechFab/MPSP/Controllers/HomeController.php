@@ -1,15 +1,14 @@
 <?php namespace FintechFab\MPSP\Controllers;
 
 use Config;
-use FintechFab\MPSP\Components\Api;
 use FintechFab\MPSP\Helpers\FormHorizontalFields;
 use FintechFab\MPSP\Models\CalculateFee;
-use FintechFab\MPSP\Models\Sender;
 use FintechFab\MPSP\Models\Status;
 use FintechFab\MPSP\Models\Transfer;
 use FintechFab\MPSP\Models\TransferConfirm;
 use Illuminate\Routing\Controller;
 use Input;
+use Mpsp;
 use View;
 
 class HomeController extends Controller
@@ -58,8 +57,7 @@ class HomeController extends Controller
 			));
 		}
 
-
-		$result = Api::doTransferStatus(array(
+		$result = Mpsp::doTransferStatus(array(
 			'code' => $form->status_code,
 			'phone' => $form->status_phone,
 		));
@@ -89,7 +87,7 @@ class HomeController extends Controller
 			));
 		}
 
-		$result = Api::getFeeCost($form->calc_amount, $form->calc_receiver_city);
+		$result = Mpsp::getFeeCost($form->calc_amount, $form->calc_receiver_city);
 		if (!$result) {
 			return 'wait';
 		}
@@ -138,7 +136,7 @@ class HomeController extends Controller
 			));
 		}
 
-		$result = Api::getFeeCost($form->calc_amount, $form->calc_receiver_city);
+		$result = Mpsp::getFeeCost($form->calc_amount, $form->calc_receiver_city);
 
 		$params = array(
 			'amount'             => $form->calc_amount,
@@ -157,7 +155,7 @@ class HomeController extends Controller
 			'phone'              => $form->receiver_phone,
 		);
 
-		$result = Api::doTransferCreate($params);
+		$result = Mpsp::doTransferCreate($params);
 
 		if (!$result || empty($result->transfer->phone)) {
 			return View::make('mpsp::errors.transfer', array(
@@ -186,7 +184,7 @@ class HomeController extends Controller
 			));
 		}
 
-		$result = Api::doTransferSend(array(
+		$result = Mpsp::doTransferSend(array(
 			'phone' => $form->confirm_phone,
 			'code'  => $form->confirm_code,
 		));

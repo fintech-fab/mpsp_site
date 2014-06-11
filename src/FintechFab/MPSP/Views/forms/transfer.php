@@ -13,7 +13,7 @@ FormHorizontalFields::model()->sender_phone = '79104775209';
 FormHorizontalFields::model()->card_number = '4532274626451231';
 FormHorizontalFields::model()->card_expire_year = '15';
 FormHorizontalFields::model()->card_expire_month = '12';
-FormHorizontalFields::model()->card_cvc = '333';
+FormHorizontalFields::model()->card_cvc = '777';
 
 ?>
 

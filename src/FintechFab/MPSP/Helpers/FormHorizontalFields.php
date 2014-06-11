@@ -35,7 +35,7 @@ class FormHorizontalFields
 	{
 
 		echo '<div class="col-lg-' . $size . '">';
-		echo Form::text($name, self::model()->$name, array(
+		echo Form::text($name, null, array(
 			'class'       => 'form-control',
 			'placeholder' => $placeholder,
 		));
@@ -47,7 +47,7 @@ class FormHorizontalFields
 	{
 
 		echo '<div class="col-lg-' . $size . '">';
-		echo Form::text($name, self::model()->$name, array(
+		echo Form::text($name, null, array(
 			'class'    => 'form-control disabled',
 			'disabled' => true,
 		));
@@ -57,7 +57,7 @@ class FormHorizontalFields
 
 	public static function hidden($name)
 	{
-		echo Form::hidden($name, self::model()->$name);
+		echo Form::hidden($name);
 	}
 
 	public static function dropdownCity($name, $size = 7)
@@ -80,7 +80,7 @@ class FormHorizontalFields
 	{
 
 		echo '<div class="col-lg-' . $size . '">';
-		echo Form::select($name, $list, self::model()->$name, array(
+		echo Form::select($name, $list, null, array(
 			'class' => 'form-control',
 		));
 		echo '</div>';

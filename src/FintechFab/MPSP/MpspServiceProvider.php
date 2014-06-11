@@ -1,22 +1,34 @@
-<?php namespace FintechFab\MPSP\Routes;
+<?php namespace FintechFab\MPSP;
 
+use FintechFab\MPSP\Components\Api;
 use FintechFab\MPSP\Controllers\HomeController;
 use Illuminate\Support\ServiceProvider;
+use Response;
 use Route;
+use View;
 
-class RoutesServiceProvider extends ServiceProvider
+class MpspServiceProvider extends ServiceProvider
 {
 
 	public function register()
 	{
-		$this->routes();
+		$this->registerViews();
+		$this->registerRoutes();
+		$this->registerErrorHandlers();
+		$this->registerBinds();
 	}
 
-	private function routes()
+	private function registerRoutes()
 	{
 		Route::get('/', HomeController::class . '@index');
 
-		Route::post('sender/create', array('as' => 'sender.create', 'uses' => HomeController::class . '@create'));
+		Route::post(
+			'sender/create',
+			array(
+				'as' => 'sender.create',
+				'uses' => HomeController::class . '@create'
+			)
+		);
 
 		Route::get(
 			'form/status',
@@ -76,6 +88,28 @@ class RoutesServiceProvider extends ServiceProvider
 				'uses'   => HomeController::class . '@transferConfirmPost'
 			)
 		);
+	}
+
+	private function registerErrorHandlers()
+	{
+		$this->app->missing(function()
+		{
+			return Response::view('mpsp::errors.missing', array(), 404);
+		});
+	}
+
+	private function registerViews()
+	{
+		View::addNamespace('mpsp', __DIR__.'/Views');
+	}
+
+	private function registerBinds()
+	{
+		$this->app->bindShared('mpsp', function()
+		{
+			return new Api();
+		});
+
 	}
 
 }
