@@ -24,7 +24,13 @@
 		"laravel/framework": "4.1.*"
 	},
 	"require-dev": {
-		"barryvdh/laravel-ide-helper": "1.*"
+		"barryvdh/laravel-ide-helper": "1.*",
+
+		"iron-io/iron_mq": "dev-master",
+
+		"fintech-fab/money-transfer-emulator": "dev-master",
+		"fintech-fab/bank-emulator": "dev-master"
+
 	},
 	"autoload": {
 		"classmap": [

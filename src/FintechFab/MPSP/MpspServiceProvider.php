@@ -1,6 +1,5 @@
 <?php namespace FintechFab\MPSP;
 
-use FintechFab\MPSP\Components\Api;
 use FintechFab\MPSP\Controllers\HomeController;
 use Illuminate\Support\ServiceProvider;
 use Response;
@@ -15,7 +14,11 @@ class MpspServiceProvider extends ServiceProvider
 		$this->registerViews();
 		$this->registerRoutes();
 		$this->registerErrorHandlers();
-		$this->registerBinds();
+	}
+
+	private function registerViews()
+	{
+		View::addNamespace('mpsp', __DIR__ . '/Views');
 	}
 
 	private function registerRoutes()
@@ -98,18 +101,5 @@ class MpspServiceProvider extends ServiceProvider
 		});
 	}
 
-	private function registerViews()
-	{
-		View::addNamespace('mpsp', __DIR__.'/Views');
-	}
-
-	private function registerBinds()
-	{
-		$this->app->bindShared('mpsp', function()
-		{
-			return new Api();
-		});
-
-	}
 
 }

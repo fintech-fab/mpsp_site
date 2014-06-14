@@ -154,7 +154,6 @@ return [
 
 	'aliases' => [
 
-		'Mpsp'            => '\FintechFab\MPSP\Facades\Mpsp',
 		'App'             => 'Illuminate\Support\Facades\App',
 		'Artisan'         => 'Illuminate\Support\Facades\Artisan',
 		'Auth'            => 'Illuminate\Support\Facades\Auth',
@@ -182,6 +181,7 @@ return [
 		'Request'         => 'Illuminate\Support\Facades\Request',
 		'Response'        => 'Illuminate\Support\Facades\Response',
 		'Route'           => 'Illuminate\Support\Facades\Route',
+		'Schema' => 'Illuminate\Support\Facades\Schema',
 		'Seeder'          => 'Illuminate\Database\Seeder',
 		'Session'         => 'Illuminate\Support\Facades\Session',
 		'SSH'             => 'Illuminate\Support\Facades\SSH',

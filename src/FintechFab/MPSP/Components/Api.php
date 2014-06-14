@@ -26,21 +26,35 @@ class Api
 	const C_STATUS_REFUND_SUCCESS = 14; // средства были возвращены
 
 	/**
-	 * @param $sName
 	 * @param $params
 	 *
 	 * @return \stdClass
 	 */
-	private function request($sName, $params)
+	public static function doTransferCreate($params)
+	{
+
+		$result = self::request('transfer/create', $params);
+
+		return $result;
+
+	}
+
+	/**
+	 * @param $name
+	 * @param $params
+	 *
+	 * @return \stdClass
+	 */
+	private static function request($name, $params)
 	{
 
 		Log::info('Environment: ' . App::environment());
 
-		$sUrl = rtrim(Config::get('api.url'), '/') . '/' . $sName;
-		$ch = curl_init($sUrl);
+		$url = rtrim(Config::get('api.url'), '/') . '/' . $name;
+		$ch = curl_init($url);
 
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
-		curl_setopt($ch, CURLOPT_URL, $sUrl);
+		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_HEADER, 0);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$result = curl_exec($ch);
@@ -48,8 +62,8 @@ class Api
 		curl_close($ch);
 
 		Log::info('Api request', array(
-			'url'    => $sUrl,
-			'name'   => $sName,
+			'url'  => $url,
+			'name' => $name,
 			'params' => $params,
 			'error'  => $error,
 			'result' => $result,
@@ -88,60 +102,48 @@ class Api
 	}
 
 	/**
-	 * @param $aParams
+	 * @param $params
 	 *
 	 * @return \stdClass
 	 */
-	public function doTransferCreate($aParams)
+	public static function doTransferSend($params)
 	{
 
-		$oResult = self::request('transfer/create', $aParams);
-		return $oResult;
+		$result = self::request('transfer/send', $params);
+
+		return $result;
 
 	}
 
 	/**
-	 * @param $aParams
+	 * @param $amount
+	 * @param $cityId
 	 *
 	 * @return \stdClass
 	 */
-	public function doTransferSend($aParams)
+	public static function getFeeCost($amount, $cityId)
 	{
 
-		$oResult = self::request('transfer/send', $aParams);
-		return $oResult;
-
-	}
-
-	/**
-	 * @param $iAmount
-	 * @param $iCityId
-	 *
-	 * @return \stdClass
-	 */
-	public function getFeeCost($iAmount, $iCityId)
-	{
-
-		$aParams = array(
-			'amount'   => (int)$iAmount,
+		$params = array(
+			'amount'  => (int)$amount,
 			'currency' => Config::get('api.currency'),
-			'city_id'  => $iCityId,
+			'city_id' => $cityId,
 		);
 
-		$oResult = self::request('transfer/cost', $aParams);
+		$oResult = self::request('transfer/cost', $params);
 		return $oResult;
 
 	}
 
 	/**
-	 * @param $aParams
+	 * @param $params
 	 *
 	 * @return null|\stdClass
 	 */
-	public function doTransferStatus($aParams)
+	public static function doTransferStatus($params)
 	{
 
-		$result = self::request('transfer/status', $aParams);
+		$result = self::request('transfer/status', $params);
 		if(empty($result) || empty($result->transfer->status) ){
 			return null;
 		}
