@@ -16,12 +16,6 @@ $preloader = '<img alt="" src="data:image/gif;base64,R0lGODlhEAAQAKUAAEx2xKy+5NT
 </head>
 <body>
 
-<header></header>
-
-<section id="about">
-
-</section>
-
 <section id="content">
 
 	<div class="row container">
