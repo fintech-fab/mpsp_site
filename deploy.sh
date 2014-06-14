@@ -4,6 +4,9 @@ confid=$1
 dbpass=$2
 irontoken=$3
 ironkey=$4
+transferkey=$5
+paymentkey=$6
+
 home=~
 
 prefix="conf-$confid"
@@ -24,13 +27,17 @@ placehoders() {
 			mv -f tmp "$cf"
 			sed -e "s/#ironkey#/$4/g" "$cf" > tmp
 			mv -f tmp "$cf"
+			sed -e "s/#transferkey#/$5/g" "$cf" > tmp
+			mv -f tmp "$cf"
+			sed -e "s/#paymentkey#/$6/g" "$cf" > tmp
+			mv -f tmp "$cf"
 		fi
 	done
 }
 
 if [ "$1" = 'help' ]
 then
-	echo "\nsh deploy.sh confid dbpass irontoken ironkey"
+	echo "\nsh deploy.sh confid dbpass irontoken ironkey transferkey paymentkey"
 else
 
 	# site
@@ -43,7 +50,7 @@ else
 
 	cd "$CONF"
 	echo "go to: $CONF"
-	placehoders "$confid" "$dbpass" "$irontoken" "$ironkey"
+	placehoders "$confid" "$dbpass" "$irontoken" "$ironkey" "$transferkey" "$paymentkey"
 	cd "$ROOT"
 	php artisan dump-autoload
 	php artisan clear-compiled
@@ -67,7 +74,7 @@ else
 
 	cd "$CONF"
 	echo "go to: $CONF"
-	placehoders "$confid" "$dbpass" "$irontoken" "$ironkey"
+	placehoders "$confid" "$dbpass" "$irontoken" "$ironkey" "$transferkey" "$paymentkey"
 	cd "$ROOT"
 	php artisan dump-autoload
 	php artisan clear-compiled
@@ -90,7 +97,7 @@ else
 
 	cd "$CONF"
 	echo "go to: $CONF"
-	placehoders "$confid" "$dbpass" "$irontoken" "$ironkey"
+	placehoders "$confid" "$dbpass" "$irontoken" "$ironkey" "$transferkey" "$paymentkey"
 	cd "$ROOT"
 	php artisan dump-autoload
 	php artisan clear-compiled
@@ -109,7 +116,7 @@ else
 
 	cd "$CONF"
 	echo "go to: $CONF"
-	placehoders "$confid" "$dbpass" "$irontoken" "$ironkey"
+	placehoders "$confid" "$dbpass" "$irontoken" "$ironkey" "$transferkey" "$paymentkey"
 	cd "$ROOT"
 
 fi
