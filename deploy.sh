@@ -1,5 +1,15 @@
 #!/bin/sh
 
+confid=$1
+dbpass=$2
+irontoken=$3
+ironkey=$4
+home=~
+
+prefix="conf-$confid"
+postfix="mpsp.dev"
+
+
 placehoders() {
 	for cf in ./*
 	do
@@ -24,7 +34,7 @@ then
 else
 
 	# site
-	ROOT="/var/www/conf-$1.mpsp.dev"
+	ROOT="$home/$prefix.$postfix"
 	EXAMPLES="$ROOT/app/config/examples"
 	CONF="$ROOT/app/config/local"
 
@@ -33,10 +43,14 @@ else
 
 	cd "$CONF"
 	echo "go to: $CONF"
-	placehoders "$1" "$2" "$3" "$4"
+	placehoders "$confid" "$dbpass" "$irontoken" "$ironkey"
 	cd "$ROOT"
 	php artisan dump-autoload
+	php artisan clear-compiled
+	php artisan ide-helper:generate
+	php artisan migrate:reset --database="ff-bank-em"
 	php artisan migrate --package="fintech-fab/bank-emulator" --database="ff-bank-em"
+	php artisan migrate:reset --database="ff-mt-em"
 	php artisan migrate --package="fintech-fab/money-transfer-emulator" --database="ff-mt-em"
 	# php artisan queue:listen --queue="ff-bank-em" ff-bank-em
 
@@ -44,7 +58,7 @@ else
 
 
 	# api
-	ROOT="/var/www/conf-$1.api.mpsp.dev"
+	ROOT="$home/$prefix.api.$postfix"
 	EXAMPLES="$ROOT/app/config/examples/local"
 	CONF="$ROOT/app/config/local"
 
@@ -53,17 +67,19 @@ else
 
 	cd "$CONF"
 	echo "go to: $CONF"
-	placehoders "$1" "$2" "$3" "$4"
+	placehoders "$confid" "$dbpass" "$irontoken" "$ironkey"
 	cd "$ROOT"
 	php artisan dump-autoload
-	php artisan migrate --seed
+	php artisan clear-compiled
+	php artisan ide-helper:generate
+	php artisan migrate:refresh --seed
 	# php artisan queue:listen api
 
 
 
 
 	# gateway
-	ROOT="/var/www/conf-$1.gateway.mpsp.dev"
+	ROOT="$home/$prefix.gateway.$postfix"
 	EXAMPLES="$ROOT/app/config/examples/local"
 	CONF="$ROOT/app/config/local"
 
@@ -72,11 +88,15 @@ else
 
 	cd "$CONF"
 	echo "go to: $CONF"
-	placehoders "$1" "$2" "$3" "$4"
+	placehoders "$confid" "$dbpass" "$irontoken" "$ironkey"
 	cd "$ROOT"
 	php artisan dump-autoload
+	php artisan clear-compiled
+	php artisan ide-helper:generate
 	php artisan migrate --seed
 	# php artisan queue:listen gateway
+
+
 
 
 	# gateway providers
@@ -88,7 +108,7 @@ else
 
 	cd "$CONF"
 	echo "go to: $CONF"
-	placehoders "$1" "$2" "$3" "$4"
+	placehoders "$confid" "$dbpass" "$irontoken" "$ironkey"
 	cd "$ROOT"
 
 fi
