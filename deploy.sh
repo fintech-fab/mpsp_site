@@ -72,7 +72,8 @@ else
 	php artisan dump-autoload
 	php artisan clear-compiled
 	php artisan ide-helper:generate
-	php artisan migrate:refresh --seed
+	php artisan migrate:reset
+	php artisan migrate --seed
 	# php artisan queue:listen api
 
 
@@ -93,7 +94,6 @@ else
 	php artisan dump-autoload
 	php artisan clear-compiled
 	php artisan ide-helper:generate
-	php artisan migrate --seed
 	# php artisan queue:listen gateway
 
 
