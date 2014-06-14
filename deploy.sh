@@ -55,9 +55,9 @@ else
 	php artisan dump-autoload
 	php artisan clear-compiled
 	php artisan ide-helper:generate
-	php artisan migrate:reset --database="ff-bank-em"
+	#php artisan migrate:reset --database="ff-bank-em"
 	php artisan migrate --package="fintech-fab/bank-emulator" --database="ff-bank-em"
-	php artisan migrate:reset --database="ff-mt-em"
+	#php artisan migrate:reset --database="ff-mt-em"
 	php artisan migrate --package="fintech-fab/money-transfer-emulator" --database="ff-mt-em"
 	# php artisan queue:listen --queue="ff-bank-em" ff-bank-em
 
@@ -79,7 +79,7 @@ else
 	php artisan dump-autoload
 	php artisan clear-compiled
 	php artisan ide-helper:generate
-	php artisan migrate:reset
+	#php artisan migrate:reset
 	php artisan migrate --seed
 	php artisan cities:list
 	# php artisan queue:listen api
