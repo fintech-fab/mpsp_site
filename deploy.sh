@@ -74,7 +74,7 @@ else
 	php artisan ide-helper:generate
 	php artisan migrate:reset
 	php artisan migrate --seed
-	php artisan sities:list
+	php artisan cities:list
 	# php artisan queue:listen api
 
 
