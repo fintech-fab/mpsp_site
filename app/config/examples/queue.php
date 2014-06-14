@@ -6,9 +6,9 @@ return [
 
 		'ff-bank-em' => [
 			'driver'  => 'iron',
-			'project' => 'your-iron-project-id',
-			'token'   => 'your-iron-token',
-			'queue'   => 'your-iron-queue',
+			'project' => '#ironkey#',
+			'token'   => '#irontoken#',
+			'queue'   => 'emulator-#confid#',
 		],
 
 	],

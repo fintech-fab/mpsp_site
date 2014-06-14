@@ -1,6 +1,6 @@
 <?php
 
 return [
-	'url'      => 'http://custom.mpsp.url',
+	'url'      => 'http://conf-#confid#.mpsp.dev',
 	'currency' => 'EUR',
 ];
